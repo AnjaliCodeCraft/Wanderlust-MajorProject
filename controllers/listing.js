@@ -63,7 +63,7 @@ let {id}= req.params;
 module.exports.updateListing = async(req,res)=>{
  let {id}=req.params;
  const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing});
-   if (!req.body.listing.image) {
+   if (req.file) {
     listing.image = { url: req.file.url, filename: req.file.filename }; // keep existing
     await listing.save();
   }
