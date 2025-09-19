@@ -35,11 +35,17 @@ module.exports.createListing = async (req, res) => {
      limit: 1,
     })
   .send()
-    let url = req.file.url;
-    let filename = req.file.filename;
+    // let url = req.file.url;
+    // let filename = req.file.filename;
+       let url, filename
+    if (req.file) {
+        url = req.file.url
+        filename = req.file.filename
+    }
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image ={url, filename};
+    // newListing.image ={url, filename};
+     if (req.file) newListing.image = { url, filename } 
     newListing.geometry =  response.body.features[0].geometry
     let savedListing = await newListing.save();
     console.log(savedListing);
