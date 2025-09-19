@@ -35,7 +35,7 @@ module.exports.createListing = async (req, res) => {
      limit: 1,
     })
   .send()
-    let url = req.file.path;
+    let url = req.file.url;
     let filename = req.file.filename;
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
@@ -64,7 +64,7 @@ module.exports.updateListing = async(req,res)=>{
  let {id}=req.params;
  const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing});
    if (!req.body.listing.image) {
-    listing.image = { url: req.file.path, filename: req.file.filename }; // keep existing
+    listing.image = { url: req.file.url, filename: req.file.filename }; // keep existing
     await listing.save();
   }
  req.flash("success", "Listing updated!");
