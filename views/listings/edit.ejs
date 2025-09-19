@@ -3,7 +3,7 @@
      <div class="row mb-2">
     <div class="col-8"><br>
     <h3>Edit your listing:</h3>
-    <form method="post" action="/listings/<%=listing._id%>?_method=PUT" class="needs-validation" novalidate>
+    <form method="post" action="/listings/<%=listing._id%>?_method=PUT"  enctype="multipart/form-data"  class="needs-validation" novalidate>
         <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input name="listing[title]" value="<%=listing.title%>" type="text" class="form-control" required>
