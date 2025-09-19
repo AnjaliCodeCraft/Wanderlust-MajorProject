@@ -29,29 +29,53 @@ module.exports.showListing = async(req, res)=>{
     res.render("listings/show.ejs",{listing});
 };
 
+// module.exports.createListing = async (req, res) => {
+//     let response = await geocodingClient.forwardGeocode({
+//      query: req.body.listing.location,
+//      limit: 1,
+//     })
+//   .send()
+//     // let url = req.file.url;
+//     // let filename = req.file.filename;
+//        let url, filename
+//     if (req.file) {
+//         url = req.file.url
+//         filename = req.file.filename
+//     }
+//     const newListing = new Listing(req.body.listing);
+//     newListing.owner = req.user._id;
+//     // newListing.image ={url, filename};
+//      if (req.file) newListing.image = { url, filename } 
+//     newListing.geometry =  response.body.features[0].geometry
+//     let savedListing = await newListing.save();
+//     console.log(savedListing);
+//     req.flash("success", "New listing created!");
+//     res.redirect("/listings");
+// };
+
 module.exports.createListing = async (req, res) => {
     let response = await geocodingClient.forwardGeocode({
-     query: req.body.listing.location,
-     limit: 1,
-    })
-  .send()
-    // let url = req.file.url;
-    // let filename = req.file.filename;
-       let url, filename
+        query: req.body.listing.location,
+        limit: 1,
+    }).send()
+
+    const newListing = new Listing(req.body.listing)
+    newListing.owner = req.user._id
+    newListing.geometry = response.body.features[0].geometry
+
+    // ✅ Minimal change: use req.file.path for Cloudinary upload
     if (req.file) {
-        url = req.file.url
-        filename = req.file.filename
+        let url = req.file.path      // <-- change from req.file.url
+        let filename = req.file.filename
+        newListing.image = { url, filename }
     }
-    const newListing = new Listing(req.body.listing);
-    newListing.owner = req.user._id;
-    // newListing.image ={url, filename};
-     if (req.file) newListing.image = { url, filename } 
-    newListing.geometry =  response.body.features[0].geometry
-    let savedListing = await newListing.save();
-    console.log(savedListing);
-    req.flash("success", "New listing created!");
-    res.redirect("/listings");
-};
+
+    let savedListing = await newListing.save()
+    console.log(savedListing)
+    req.flash("success", "New listing created!")
+    res.redirect("/listings")
+}
+
 
 module.exports.renderEditForm = async(req, res)=>{
 let {id}= req.params;
