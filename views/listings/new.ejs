@@ -1,0 +1,58 @@
+   <%layout("/layouts/boilerplate")-%>
+<body>
+    <div class="row mb-2">
+    <div class="col-8 offset-2">
+        <br><br>
+    <h3>Create your new listing</h3>
+
+    <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input name="listing[title]" placeholder="Enter a catchy title" class="form-control" type="text" required>
+          <div class="valid-feedback">
+      Looks good!
+    </div>
+    </div>
+    <div  class="mb-3">
+        <label for="description" class="form-label">Description</label>
+         <textarea name="listing[description]" type="text" class="form-control"required></textarea>
+        
+    </div>
+    <div class="row">
+    <div  class="mb-3 col-md-4">
+        <label for="price" class="form-label">Price</label>
+        <input name="listing[price]" placeholder="1200" class="form-control"required>
+          <div class="invalid-feedback">Price must be valid</div>
+    </div>
+    <div  class="mb-3 col-md-8">
+        <label for="country" class="form-label">Country</label>
+        <input name="listing[country]" placeholder="India" type="text" class="form-control"required>
+         <div class="invalid-feedback">Country should be valid</div>
+    </div>
+    </div>
+    <!-- <div  class="mb-3">
+        <label for="image" class="form-label">Image Link</label>
+        <input name="listing[image][url]" placeholder="Paste image link/URL" type="text"   value="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"  class="form-control">
+        
+  <!- Hidden field for filename -->
+  <!-- <input 
+    type="hidden" 
+    name="listing[image][filename]" 
+    value="listingimage">
+    </div> --> 
+
+     <div  class="mb-3">
+        <label for="image" class="form-label"> Upload Image </label>
+        <input name="listing[image]"  type="file"  class="form-control">
+        </div>
+        
+    <div  class="mb-3">
+        <label for="location" class="form-label">Location</label>
+         <input name="listing[location]" placeholder="Nainital,Uttarakhand" type="text" class="form-control"required>
+          <div class="invalid-feedback">Location should be valid</div>
+    </div><br>
+    <button class="btn btn-dark add-btn">Add</button>
+    </form>
+</div>
+</div>
+</body>
